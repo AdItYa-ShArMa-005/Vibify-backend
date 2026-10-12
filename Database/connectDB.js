@@ -1,16 +1,13 @@
-const mongoose = require('mongoose');
-const connectDatabase = async() => {
-    try{
-        const connection = await mongoose.connect(process.env.mongodb_url);
-        if(connection)
-            console.log("Database connected successfully");
-    }
-    catch(err)
-    {
-        console.log({
-            message : "Error connecting database",
-            error : err
-        });
+
+const mongoose = require("mongoose");
+
+const connectDatabase = async () => {
+    try {
+        await mongoose.connect(process.env.mongodb_url);
+        console.log("Database connected successfully");
+    } catch (err) {
+        console.error("Error connecting database:", err);
+        throw err;
     }
 };
 

@@ -1,10 +1,14 @@
-const logout = (req,res) => {
-    const {token} = req.cookies;
-    if(!token)
-        return res.status(401).json({message : "User not verified"});
+const logout = (req, res) => {
+    res.clearCookie("accessToken", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/"
+    });
 
-    res.clearCookie('token');
-    return res.status(200).json({message : "User logged-out successfully"});
+    return res.status(200).json({
+        message: "Logged out successfully"
+    });
 };
 
 module.exports = logout;
